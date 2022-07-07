@@ -5,4 +5,5 @@ email: kopecky.mir@gmail.com
 discord: Miro#8969
 
 """
+import sys 
 
