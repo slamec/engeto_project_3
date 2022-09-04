@@ -5,6 +5,7 @@ email: kopecky.mir@gmail.com
 discord: Miro#8969
 
 """
+import code
 from urllib import request
 from bs4 import BeautifulSoup
 import requests
@@ -95,6 +96,31 @@ def get_data(url):
                 number = items.getText()
                 temp_list.append(int(number.replace('\xa0', '')))
         except:
-            continue #maybe trouble
+            continue #might be trouble
 
     return temp_list
+
+# stazeni dat pro jednotlive obce
+def data_by_city():
+
+    cities = []
+
+    print('Data is being downloaded. It might take few seconds...')
+    
+    get_parties(codes[1][1])
+
+    for items in range(0, len(codes)):
+
+        detail = []
+
+        cities.extend(codes[items])
+        cities.pop(1) # deletes hhtp
+
+        detail = get_data(codes[items][1])
+
+        cities.append(names[items])
+        cities.extend(detail)
+        
+        completed_list.append(cities)
+
+        cities.clear()
