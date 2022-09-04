@@ -5,6 +5,7 @@ email: kopecky.mir@gmail.com
 discord: Miro#8969
 
 """
+from urllib import request
 from bs4 import BeautifulSoup
 import requests
 import sys
@@ -44,11 +45,11 @@ def load_city(url):
 
     request = requests.get(url)
     soup = BeautifulSoup(request.content, 'html.parser')
-    city = soup.find_all(class_= 'cislo')
-    city_name = soup.find_all(class_= 'overflow_name')
+    city = soup.find_all(class_ = 'cislo')
+    city_name = soup.find_all(class_ = 'overflow_name')
     
     for items in city:
-        temp_list= [] 
+        temp_list = [] 
 
         city_code = items.getText()
         link_obce = BASE_URL + items.find('a').get('href')
@@ -59,3 +60,41 @@ def load_city(url):
     for items in city_name:
        city_name = items.getText()
        names.append(city_name)
+
+def get_parties(url):
+    """Scraps politican party name"""
+
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content, 'html.parser')
+    parties = soup.find_all(class_ = 'overflow_name')
+    for items in parties:
+        parties.append(items.getText())
+
+def get_data(url):
+    """Scraps data about: voters, envelopes, votes"""
+    temp_list = []
+
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content, 'html.parser')
+
+    voters = soup.find(class_ = 'cislo', headers = 'sa2').getText()
+    temp_list.append(int(voters.replace('\xa0', '')))
+
+    envelopes = soup.find(class_= 'cislo', headers= 'sa3').getText()
+    temp_list.append(int(envelopes.replace('\xa0', '')))
+
+    votes = soup.find(class_= 'cislo' , headers= 'sa6').getText()
+    temp_list.append(int(votes.replace("\xa0", '')))
+
+    for number in range(1, 4):
+        try:
+            parties_count =  soup.find_all(class_= 'cislo', headers = f't{number}sa2 t{number}sb3')
+            
+            for items in parties_count:
+                
+                number = items.getText()
+                temp_list.append(int(number.replace('\xa0', '')))
+        except:
+            continue #maybe trouble
+
+    return temp_list
