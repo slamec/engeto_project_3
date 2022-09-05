@@ -5,8 +5,7 @@ email: kopecky.mir@gmail.com
 discord: Miro#8969
 
 """
-import code
-from urllib import request
+
 from bs4 import BeautifulSoup
 import requests
 import sys
@@ -14,12 +13,11 @@ import csv
 
 codes = []
 names = []
-completed_list = []
 parties = []
+completed_list = []
 
 HEADER = ['City code','City name','Voters','Envelopes', 'Valid votes']
 BASE_URL = 'https://volby.cz/pls/ps2017nss/'
-
 
 def load_parameters():
     """Loads parameters from the command line a save them to a list"""
@@ -53,22 +51,23 @@ def load_city(url):
         temp_list = [] 
 
         city_code = items.getText()
-        link_obce = BASE_URL + items.find('a').get('href')
+        city_link = BASE_URL + items.find('a').get('href')
         temp_list.append(city_code)
-        temp_list.append(link_obce)
+        temp_list.append(city_link)
         codes.append(temp_list)
 
     for items in city_name:
-       city_name = items.getText()
-       names.append(city_name)
+       city = items.getText()
+       names.append(city)
 
 def get_parties(url):
     """Scraps politican party name"""
 
     request = requests.get(url)
     soup = BeautifulSoup(request.content, 'html.parser')
-    parties = soup.find_all(class_ = 'overflow_name')
-    for items in parties:
+    party = soup.find_all(class_ = 'overflow_name')
+
+    for items in party:
         parties.append(items.getText())
 
 def get_data(url):
@@ -123,9 +122,9 @@ def data_by_city():
         
         completed_list.append(cities)
 
-        cities.clear()
+        cities = []
 
-def save_data(file):
+def save_data(data):
     """Save the scrapped data to a csv file"""
 
     temp_list = []
@@ -133,12 +132,21 @@ def save_data(file):
     temp_list.extend(HEADER)
     temp_list.extend(parties)
 
-    print(f'Saving the data.....{file}.')
+    print(f'Saving the data to {data}.')
     
-    with open(file, "w", newline='', encoding='utf-8') as file:
-        
+    with open(data, "w", newline='', encoding='utf-8') as file:
         wr = csv.writer(file)
+
         wr.writerow(temp_list)
         wr.writerows(completed_list)
 
     print("Data has beed saved, see you next time.")
+
+def main():
+        url, data = load_parameters()
+        load_city(url)
+        data_by_city()
+        save_data(data)
+
+if __name__ == "__main__":
+    main()
