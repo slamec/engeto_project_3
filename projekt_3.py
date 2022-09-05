@@ -124,3 +124,21 @@ def data_by_city():
         completed_list.append(cities)
 
         cities.clear()
+
+def save_data(file):
+    """Save the scrapped data to a csv file"""
+
+    temp_list = []
+
+    temp_list.extend(HEADER)
+    temp_list.extend(parties)
+
+    print(f'Saving the data.....{file}.')
+    
+    with open(file, "w", newline='', encoding='utf-8') as file:
+        
+        wr = csv.writer(file)
+        wr.writerow(temp_list)
+        wr.writerows(completed_list)
+
+    print("Data has beed saved, see you next time.")
