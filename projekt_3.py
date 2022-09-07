@@ -3,7 +3,6 @@ projekt_3.py: třetí projekt do Engeto Online Python Akademie
 author: Miroslav Kopecky
 email: kopecky.mir@gmail.com
 discord: Miro#8969
-
 """
 
 from bs4 import BeautifulSoup
@@ -20,7 +19,7 @@ HEADER = ['City code','City name','Voters','Envelopes', 'Valid votes']
 BASE_URL = 'https://volby.cz/pls/ps2017nss/'
 
 def load_parameters():
-    """Loads parameters from the command line a save them to a list"""
+    """Loads parameters from the command line a save them to a list. Two parameters needed url and final file"""
 
     parameters = sys.argv
 
@@ -40,7 +39,7 @@ def load_parameters():
         return parameters[1], parameters[2]
 
 def load_city(url):
-    """Loads all cities from particular county and save to a list"""
+    """Loads all cities from particular county and save them to a list"""
 
     request = requests.get(url)
     soup = BeautifulSoup(request.content, 'html.parser')
@@ -61,7 +60,7 @@ def load_city(url):
        names.append(city)
 
 def get_parties(url):
-    """Scraps politican party name"""
+    """Scraps politician party name"""
 
     request = requests.get(url)
     soup = BeautifulSoup(request.content, 'html.parser')
@@ -95,13 +94,14 @@ def get_data(url):
                 number = items.getText()
                 temp_list.append(int(number.replace('\xa0', '')))
         except:
-            continue #might be trouble
+            continue 
 
     return temp_list
 
 # stazeni dat pro jednotlive obce
 def data_by_city():
-
+    """Fills the final list"""
+    
     cities = []
 
     print('Data is being downloaded. It might take few seconds...')
