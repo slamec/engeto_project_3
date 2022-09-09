@@ -23,8 +23,8 @@ Data download and saving:
 ```Data has beed saved, see you next time.```
 
 Output data:
-```City code,City name,Voters,Envelopes,Valid votes,Občanská demokratická strana...
-532568,Bernartice,191,148,148,4,0,0,17,0,6,7,1,4,0,0,0,7,0,0,3,39,0,0,37,0,3,0,0,20,0
+```City code,City name,Voters,Envelopes,Valid votes,Občanská demokratická strana...```
+```532568,Bernartice,191,148,148,4,0,0,17,0,6,7,1,4,0,0,0,7,0,0,3,39,0,0,37,0,3,0,0,20,0
 530743,Bílkovice,170,121,118,7,0,0,15,0,8,18,0,2,0,0,0,3,0,0,2,47,1,0,6,0,0,0,0,9,0
 532380,Blažejovice,96,80,77,6,0,0,5,0,3,11,0,0,3,0,0,5,1,0,0,29,0,0,6,0,0,0,0,8,0
 ```
