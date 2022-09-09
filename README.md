@@ -15,7 +15,7 @@ To run the the script use ```python projekt_3.py```. Example below (script, link
 DO NOT FORGET TO USE TWO ARGUMENTS! 
 
 Data download and saving: 
-```Data is being downloaded. It might take few seconds...
-Saving the data to 'election_data.csv'.
-Data has beed saved, see you next time
-```
+```Data is being downloaded. It might take few seconds...```
+```Saving the data to 'election_data.csv'.```
+```Data has beed saved, see you next time```
+
