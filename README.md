@@ -22,7 +22,7 @@ Data download and saving:
 
 ```Data has beed saved, see you next time.```
 
-Output data:
+Output data (partial):
 
 ```City code,City name,Voters,Envelopes,Valid votes,Občanská demokratická strana...```
 ```532568,Bernartice,191,148,148,4,0,0,17,0,6,7,1,4,0,0,0,7,0,0,3,39,0,0,37,0,3,0,0,20,0
